@@ -1,8 +1,6 @@
-import {
-  selectError,
-  selectFilteredContacts,
-  selectLoading,
-} from "../../redux/contactsSlice";
+import { ClipLoader } from "react-spinners";
+import { selectError, selectLoading } from "../../redux/contacts/selectors";
+import { selectFilteredContacts } from "../../redux/contacts/slice";
 import Contact from "../Contact/Contact";
 import css from "./ContactList.module.css";
 import { useSelector } from "react-redux";
@@ -15,17 +13,19 @@ const ContactList = () => {
 
   return (
     <>
-      <ul className={css.contactList}>
-        {filteredContacts.map(({ id, name, phone }) => (
-          <li key={id}>
-            <Contact id={id} name={name} phone={phone} />
-          </li>
-        ))}
-      </ul>
+      {loading && !error ? (
+        <ClipLoader color="#0040ff" size={50} />
+      ) : (
+        <ul className={css.contactList}>
+          {filteredContacts.map(({ id, name, number }) => (
+            <li key={id} className={css.listItem}>
+              <Contact id={id} name={name} number={number} />
+            </li>
+          ))}
+        </ul>
+      )}
 
-      {loading && !error && <h2>Loading.....</h2>}
-
-      {error && <h2>{error}</h2>}
+      {error && <p className={css.error}>⚠️ {error}</p>}
     </>
   );
 };

@@ -1,0 +1,12 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notFoundText {
+  color: #f60a0a;
+  font-size: x-large;
+  font-weight: bold;
+  margin-bottom: 30px;
+}

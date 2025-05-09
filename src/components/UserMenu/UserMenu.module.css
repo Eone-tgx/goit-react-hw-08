@@ -1,0 +1,10 @@
+.userMenu {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.userName {
+  font-weight: bold;
+  border-bottom: 2px solid #ffffff;
+}

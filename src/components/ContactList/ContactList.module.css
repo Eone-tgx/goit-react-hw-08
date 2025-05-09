@@ -1,5 +1,22 @@
 .contactList {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.listItem {
+  width: 300px;
+}
+
+.listItem:hover {
+  width: 300px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
 }

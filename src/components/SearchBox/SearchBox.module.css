@@ -1,9 +1,12 @@
 .searchWrapper {
   display: flex;
   flex-direction: column;
+  gap: 5px;
   text-align: start;
   border: 1px solid #ffffff;
   border-radius: 5px;
   padding: 10px;
-  margin-bottom: 30px;
+  max-width: 250px;
+  justify-content: center;
+  margin: 50px auto;
 }

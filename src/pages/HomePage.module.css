@@ -1,0 +1,21 @@
+.homeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  min-height: 65vh;
+}
+
+.title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #5f66ec;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #666;
+  margin-bottom: 40px;
+}

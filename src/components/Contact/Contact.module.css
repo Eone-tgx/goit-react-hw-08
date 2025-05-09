@@ -6,6 +6,10 @@
   padding: 10px;
 }
 
+.contactListWrapper:hover {
+  border: 1px solid #535bf2;
+}
+
 .contactList {
   display: flex;
   flex-direction: column;

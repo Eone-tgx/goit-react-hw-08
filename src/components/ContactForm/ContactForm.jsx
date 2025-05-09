@@ -2,23 +2,25 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useId } from "react";
 import css from "./ContactForm.module.css";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "../../redux/contacts/operations";
+import { toast } from "react-toastify";
+import { selectContacts } from "../../redux/contacts/selectors";
 
 const formValidation = Yup.object().shape({
   name: Yup.string()
-    .min(3, "Ім'я закоротке")
-    .max(50, "Ім'я задовге")
-    .required("Поле обов'язкове до заповнення"),
-  phone: Yup.string()
-    .min(7, "Номер закороткий")
-    .max(10, "Номер задовгий")
-    .required("Поле обов'язкове до заповнення"),
+    .min(3, "The name is too short")
+    .max(50, "The name is too long")
+    .required("Field is required"),
+  number: Yup.string()
+    .min(7, "The number is too short")
+    .max(10, "The number is too long")
+    .required("Field is required"),
 });
 
 const initialValues = {
   name: "",
-  phone: "",
+  number: "",
 };
 
 const ContactForm = () => {
@@ -26,13 +28,27 @@ const ContactForm = () => {
   const nameId = useId();
   const numberId = useId();
 
+  const contacts = useSelector(selectContacts);
+
   const handleSubmit = (values, actions) => {
+    const isDuplicate = contacts.some(
+      (contact) => contact.name.toLowerCase() === values.name.toLowerCase()
+    );
+
+    if (isDuplicate) {
+      alert(`${values.name} is already in contacts!`);
+      return;
+    }
+
     const newContact = {
       name: values.name,
-      phone: values.phone,
+      number: values.number,
     };
 
-    dispatch(addContact(newContact));
+    dispatch(addContact(newContact))
+      .unwrap()
+      .then(() => toast.success("Contact added successfully"))
+      .catch(() => toast.error("An error occurred while adding"));
     actions.resetForm();
   };
 
@@ -56,15 +72,17 @@ const ContactForm = () => {
 
           <div className={css.labelWrapper}>
             <label htmlFor={numberId}>Number</label>
-            <Field type="phone" name="phone" id={numberId} />
+            <Field type="phone" name="number" id={numberId} />
             <ErrorMessage
               className={css.errorMessage}
-              name="phone"
+              name="number"
               component="span"
             />
           </div>
 
-          <button type="submit">Add contact</button>
+          <button className={css.formBtn} type="submit">
+            Add contact
+          </button>
         </Form>
       </Formik>
     </div>
